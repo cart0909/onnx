@@ -363,7 +363,7 @@ list(REMOVE_ITEM __tmp_srcs "${ONNX_ROOT}/onnx/cpp2py_export.cc")
 list(REMOVE_ITEM __tmp_srcs ${onnx_gtests_src})
 list(APPEND ONNX_SRCS ${__tmp_srcs})
 
-add_library(onnx_proto ${ONNX_PROTO_SRCS} ${ONNX_PROTO_HDRS})
+add_library(onnx_proto SHARED ${ONNX_PROTO_SRCS} ${ONNX_PROTO_HDRS})
 add_dependencies(onnx_proto gen_onnx_operators_proto gen_onnx_data_proto)
 target_include_directories(onnx_proto PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
@@ -419,7 +419,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "AIX")
   # So, create a object library
   add_library(onnx OBJECT ${ONNX_SRCS})
 else()
-  add_library(onnx ${ONNX_SRCS})
+  add_library(onnx SHARED ${ONNX_SRCS})
 endif()
 
 target_include_directories(onnx PUBLIC
